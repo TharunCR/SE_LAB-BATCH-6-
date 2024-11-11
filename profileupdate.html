@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile & Update</title>
+    <link rel="stylesheet" href="profileupdate.css"> <!-- Link to CSS file -->
+</head>
+
+<body>
+
+    <div class="container" id="profileSection">
+        <h1>Profile</h1>
+        <div class="profile-info">
+            <p id="name">Name: M.Jaswanth</p>
+            <p id="phone">Phone: 3456</p>
+            <p id="email">Email: xyz@gmail.com</p>
+        </div>
+        <button onclick="toggleSection()">Update Profile</button>
+    </div>
+
+    <div class="container hidden" id="updateSection">
+        <h1>Update Profile</h1>
+        <form id="profileForm">
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput" name="name" placeholder="Enter your name" required>
+
+            <label for="phoneInput">Phone:</label>
+            <input type="text" id="phoneInput" name="phone" placeholder="Enter your phone number" required>
+
+            <label for="emailInput">Email:</label>
+            <input type="email" id="emailInput" name="email" placeholder="Enter your email" required>
+
+            <label for="dobInput">Date of Birth:</label>
+            <input type="date" id="dobInput" name="dob">
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const name = localStorage.getItem('name');
+            const phone = localStorage.getItem('phone');
+            const email = localStorage.getItem('email');
+
+            if (name) document.getElementById('name').innerText = 'Name: ' + name;
+            if (phone) document.getElementById('phone').innerText = 'Phone: ' + phone;
+            if (email) document.getElementById('email').innerText = 'Email: ' + email;
+        };
+
+        function toggleSection() {
+            document.getElementById('profileSection').classList.toggle('hidden');
+            document.getElementById('updateSection').classList.toggle('hidden');
+        }
+
+        document.getElementById('profileForm').onsubmit = function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('nameInput').value;
+            const phone = document.getElementById('phoneInput').value;
+            const email = document.getElementById('emailInput').value;
+
+            localStorage.setItem('name', name);
+            localStorage.setItem('phone', phone);
+            localStorage.setItem('email', email);
+
+            document.getElementById('name').innerText = 'Name: ' + name;
+            document.getElementById('phone').innerText = 'Phone: ' + phone;
+            document.getElementById('email').innerText = 'Email: ' + email;
+
+            toggleSection();
+        };
+    </script>
+
+</body>
+
+</html>

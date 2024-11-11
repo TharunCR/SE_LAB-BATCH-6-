@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="event.css">
+    <title>Event Details</title>
+</head>
+<body>
+    <h1 id="eventTitle">Event Details</h1>
+    <p id="eventDescription">Detailed information about the event...</p>
+    <button onclick="bookEvent()">Book Now</button>
+
+    <script>
+        // Function to parse query parameters and display event details
+        function getEventDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventName = urlParams.get('event');
+            document.getElementById('eventTitle').innerText = eventName;
+            // Set other event details as needed
+        }
+
+        // Call function to populate details on page load
+        getEventDetails();
+
+        // Function to handle booking an event
+        function bookEvent() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventName = urlParams.get('event');
+            
+            // Using localStorage to save booked events
+            let bookedEvents = JSON.parse(localStorage.getItem('bookedEvents')) || [];
+            if (!bookedEvents.includes(eventName)) {
+                bookedEvents.push(eventName);
+                localStorage.setItem('bookedEvents', JSON.stringify(bookedEvents));
+                alert("Event booked successfully!");
+            } else {
+                alert("You have already booked this event.");
+            }
+        }
+    </script>
+</body>
+</html>
